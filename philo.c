@@ -6,15 +6,20 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/28 23:54:23 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/29 00:09:10 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int init_philo(t_data *data, t_philo *philo, char *argv[])
+void routine(t_philo *philo)
 {
-	int i;
+
+}
+
+int	init_philo(t_data *data, t_philo *philo, char *argv[])
+{
+	int	i;
 
 	i = 0;
 	data->time_die = ft_atoi(argv[2]);
@@ -28,27 +33,31 @@ int init_philo(t_data *data, t_philo *philo, char *argv[])
 		philo[i].meal_count = 0;
 		philo[i].eating = 0;
 		philo[i].meals_eaten = 0;
-		pthread_mutex_init(&philo[i].right_fork, NULL);
+		if (pthread_mutex_init(&philo[i].right_fork, NULL) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
 		if (i != 0)
-			philo[i].left_fork = &philo[i-1].right_fork;
+			philo[i].left_fork = &philo[i - 1].right_fork;
 	}
-	philo[0].left_fork = &philo[i-1].right_fork;
-	return (0);
+	philo[0].left_fork = &philo[i - 1].right_fork;
+	return (EXIT_SUCCESS);
 }
 
-
-int create_philos(t_data *data, char *argv[])
+int	create_philos(t_data *data, char *argv[])
 {
 	data->n_philo = ft_atoi(argv[1]);
-	data->philo = malloc(sizeof(t_philo)* data->n_philo);
-	init_philo(data, data->philo);
-	return (0);
+	data->philo = malloc(sizeof(t_philo) * data->n_philo);
+	if (!data->philo)
+		return (EXIT_FAILURE);
+	if (init_philo(data, data->philo, argv) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	
+	return (EXIT_SUCCESS);
 }
 
-int parsing(int argc, char *argv[])
+int	parsing(int argc, char *argv[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 1;
@@ -68,14 +77,14 @@ int parsing(int argc, char *argv[])
 		}
 		i++;
 	}
-	return(0);
+	return (EXIT_SUCCESS);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_data data;
+	t_data	data;
 
 	if (parsing(argc, argv) == 1)
-		return (1);
+		return (EXIT_FAILURE);
 	create_philos(&data, argv);
 }
