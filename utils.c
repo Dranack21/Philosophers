@@ -6,31 +6,12 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:53:35 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 17:04:58 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 18:02:06 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int create_threads(t_data *data ,t_philo *philo)
-{
-	int i;
-
-	i = 0;
-	while(i != data->n_philo)
-	{
-		if (pthread_create(&philo[i].thread, NULL, routine, &(philo[i])) != 0)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	i = 0;
-	while (i < data->n_philo)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
 int	ft_atoi(const char *nptr)
 {
 	int	i;
@@ -62,4 +43,30 @@ int	ft_isdigit(int c)
 		return (1);
 	else
 		return (0);
+}
+
+int	parsing(int argc, char *argv[])
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 1;
+	if (argc != 5 && argc != 6)
+		return (write(2, "Wrong number of arguments\n", 27), 1);
+	while (i != argc)
+	{
+		if (argv[i][j])
+		{
+			while (argv[i][j])
+			{
+				if (ft_isdigit(argv[i][j]) == 1)
+					j++;
+				else
+					return (write(2, "Wrong arguments\n", 17), 1);
+			}
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }

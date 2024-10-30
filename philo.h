@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 16:06:24 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 18:21:32 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ typedef struct s_philo
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t right_fork;
 	struct s_data			*data;
+	long				time_death;
+	long			time_sleep;
+	long long			time_eat;
 	int 			id;
 	int 			meal_count;
 	int 			eating;
@@ -32,7 +35,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	t_philo *philo;
-	long double		time_start;
+	long 	time_start;
 	int		time_die;
 	int		time_eat;
 	int		time_sleep;
@@ -45,6 +48,7 @@ int parsing(int argc, char *argv[]);
 int create_philos(t_data *data, char *argv[]);
 int init_philo(t_data *data, t_philo *philo, char *argv[]);
 void *routine(void* arg);
+int	eat(t_data *data, t_philo *philo);
 
 int	ft_isdigit(int c);
 int create_threads(t_data *data ,t_philo *philo);
