@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 16:08:00 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 16:57:38 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void *routine(void* arg)
 	t_philo *philo;
 
 	philo = (t_philo*)arg;
-	printf("%d", philo[2].id);
+	pthread_mutex_lock(&(philo->right_fork));
+	printf("AAAAAAAAAAA\n");
+	pthread_mutex_unlock(&(philo->right_fork));
+	return (NULL);
+	// printf("%d", philo->id);
 }
 
 int	init_philo(t_data *data, t_philo *philo, char *argv[])
@@ -30,9 +34,9 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 	data->time_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
-	while (i++ != data->n_philo)
+	while (i < data->n_philo)
 	{
-		philo[i].id = i;
+		philo[i].id = i + 1;
 		philo[i].meal_count = 0;
 		philo[i].eating = 0;
 		philo[i].meals_eaten = 0;
@@ -40,6 +44,7 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 			return (EXIT_FAILURE);
 		if (i != 0)
 			philo[i].left_fork = &philo[i - 1].right_fork;
+		i++;
 	}
 	philo[0].left_fork = &philo[data->n_philo - 1].right_fork;
 	return (EXIT_SUCCESS);

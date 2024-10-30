@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:53:35 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 15:36:22 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 17:04:58 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 int create_threads(t_data *data ,t_philo *philo)
 {
 	int i;
-	int result;
 
 	i = 0;
-	while(i != data->n_philo - 1)
+	while(i != data->n_philo)
 	{
-		result = pthread_create(&philo[i].thread, NULL, routine, (void*)(philo));
-		if (result != 0)
+		if (pthread_create(&philo[i].thread, NULL, routine, &(philo[i])) != 0)
 			return (EXIT_FAILURE);
+		i++;
+	}
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
 	return (EXIT_SUCCESS);
