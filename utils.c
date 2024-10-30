@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:53:35 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 18:02:06 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 18:39:25 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,14 @@ int	parsing(int argc, char *argv[])
 		i++;
 	}
 	return (EXIT_SUCCESS);
+}
+
+long	get_time(void)
+{
+	struct timeval	tv;
+	long			value;
+
+	gettimeofday(&tv, NULL);
+	value = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (value);
 }

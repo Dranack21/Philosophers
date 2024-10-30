@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 18:37:06 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 18:39:47 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	create_philos(t_data *data, char *argv[])
 	i = 0;
 
 	gettimeofday(&tv, NULL);
-	data->time_start = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	data->time_start = get_time();
 	data->n_philo = ft_atoi(argv[1]);
 	data->philo = malloc(sizeof(t_philo) * data->n_philo);
 	if (!data->philo)

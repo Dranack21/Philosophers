@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 18:21:32 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/30 18:39:36 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int create_philos(t_data *data, char *argv[]);
 int init_philo(t_data *data, t_philo *philo, char *argv[]);
 void *routine(void* arg);
 int	eat(t_data *data, t_philo *philo);
+long	get_time(void);
 
 int	ft_isdigit(int c);
 int create_threads(t_data *data ,t_philo *philo);
