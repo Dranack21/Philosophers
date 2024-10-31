@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/31 17:02:57 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/31 17:44:26 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef struct s_philo
 	struct s_data			*data;
 	long				time_death;
 	long				time_sleep;
-	long			time_eat;
+	long				time_eat;
+	int				time_last_meal;
 	int 			id;
 	int 			meal_count;
 	int 			eating;
@@ -50,6 +51,7 @@ int init_philo(t_data *data, t_philo *philo, char *argv[]);
 void *routine(void* arg);
 int	eat(t_data *data, t_philo *philo);
 long	get_time(void);
+int monitoring(t_data *data, t_philo *philo);
 
 int	ft_isdigit(int c);
 int sleepge(t_data *data, t_philo *philo);
