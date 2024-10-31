@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/31 17:44:26 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/31 18:54:17 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 	int 			id;
 	int 			meal_count;
 	int 			eating;
+	int				alive;
 	int 			meals_eaten;
 	
 } t_philo;
