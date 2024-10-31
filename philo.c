@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/30 18:39:47 by habouda          ###   ########.fr       */
+/*   Updated: 2024/10/31 16:54:09 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void *routine(void* arg)
 	philo = (t_philo*)arg;
 	// data = philo->data;
 	if (philo->id % 2 == 1)
-		sleep(5);
+		usleep(50);
 	eat(philo->data, philo);
+	sleepge(philo->data, philo);
+	
 	return (NULL);
 }
 
