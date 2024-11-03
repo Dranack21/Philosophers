@@ -6,28 +6,11 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/10/31 18:54:33 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/03 16:54:29 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void *routine(void* arg)
-{
-	t_philo *philo;
-	// t_data	*data;
-
-	philo = (t_philo*)arg;
-	// data = philo->data;
-	if (philo->id % 2 == 1)
-		usleep(50);
-	while (1)
-	{
-		eat(philo->data, philo);
-		sleepge(philo->data, philo);
-	}
-	return (NULL);
-}
 
 int	init_philo(t_data *data, t_philo *philo, char *argv[])
 {
@@ -47,7 +30,7 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 		philo[i].meals_eaten = 0;
 		philo[i].alive = 1;
 		philo[i].data = data;
-		if (pthread_mutex_init(&philo[i].right_fork, NULL) != EXIT_SUCCESS) 
+		if (pthread_mutex_init(&philo[i].right_fork, NULL) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		if (i != 0)
 			philo[i].left_fork = &philo[i - 1].right_fork;
@@ -57,12 +40,12 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
-int create_threads(t_data *data ,t_philo *philo)
+int	create_threads(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i != data->n_philo)
+	while (i != data->n_philo)
 	{
 		if (pthread_create(&philo[i].thread, NULL, routine, &(philo[i])) != 0)
 			return (EXIT_FAILURE);
@@ -80,9 +63,7 @@ int create_threads(t_data *data ,t_philo *philo)
 
 int	create_philos(t_data *data, char *argv[])
 {
-	int 			i;
-	struct timeval tv;
-	i = 0;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	data->time_start = get_time();
