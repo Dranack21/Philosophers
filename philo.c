@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/03 16:54:29 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/03 17:20:43 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
+void cleanup(t_data *data, t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+
+	while (i < data->n_philo)
+	{
+		pthread_mutex_destroy(&philo[i].right_fork);
+		i++;
+	}
+	free (philo);
+	free (data);
+	
+}
 int	create_threads(t_data *data, t_philo *philo)
 {
 	int	i;
@@ -84,4 +99,5 @@ int	main(int argc, char *argv[])
 	if (parsing(argc, argv) == 1)
 		return (EXIT_FAILURE);
 	create_philos(&data, argv);
+	cleanup(&data, data.philo);
 }
