@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/03 16:53:04 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/05 11:38:54 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	*routine(void *arg)
 			return (NULL);
 		if (sleepge(philo->data, philo) == EXIT_FAILURE)
 			return (NULL);
+		if (philo->alive == 0)
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -34,6 +36,8 @@ int	eat(t_data *data, t_philo *philo)
 	struct timeval	tv;
 	long			time;
 
+	if (philo->alive == 0)
+		return(EXIT_FAILURE);
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->right_fork);
 	gettimeofday(&tv, NULL);
@@ -57,6 +61,8 @@ int	sleepge(t_data *data, t_philo *philo)
 	struct timeval	tv;
 	long			time;
 
+	if (philo->alive == 0)
+		return(EXIT_FAILURE);
 	gettimeofday(&tv, NULL);
 	time = get_time() - data->time_start;
 	printf("%ld :%d is sleeping\n", time, philo->id);

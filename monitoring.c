@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/03 17:23:05 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/05 11:31:33 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,19 @@ int	monitoring(t_data *data, t_philo *philo)
 			}
 			i++;
 			if (check_alive(data, philo) == 0)
+			{
+				i = 0;
+				printf("data->nphilo value = %d\n", data->n_philo);
+				while (i < data->n_philo)
+				{
+					if (i == data->n_philo)
+						break;
+					printf("is philo %d, alive ? : %d \n", philo[i].id, philo[i].alive);
+					printf("valeur de i %d\n", i);
+					i++;
+				}
 				return (0);
+			}
 		}
 	}
 }
