@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:53:35 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/03 16:54:38 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:54:49 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,19 @@ int	parsing(int argc, char *argv[])
 	int	i;
 	int	j;
 
-	j = 0;
-	i = 1;
 	if (argc != 5 && argc != 6)
-		return (write(2, "Wrong number of arguments\n", 27), 1);
-	while (i != argc)
+		return (write(2, "Wrong number of arguments\n", 27), EXIT_FAILURE);
+	i = 1;
+	while (i < argc)
 	{
-		if (argv[i][j])
+		j = 0;
+		if (argv[i][j] == '\0')
+			return (write(2, "Empty argument\n", 15), EXIT_FAILURE);
+		while (argv[i][j])
 		{
-			while (argv[i][j])
-			{
-				if (ft_isdigit(argv[i][j]) == 1)
-					j++;
-				else
-					return (write(2, "Wrong arguments\n", 17), 1);
-			}
+			if (!ft_isdigit(argv[i][j]))
+				return (write(2, "Wrong arguments\n", 17), EXIT_FAILURE);
+			j++;
 		}
 		i++;
 	}

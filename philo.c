@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/07 18:15:17 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:59:55 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 		philo[i].alive = 1;
 		philo[i].data = data;
 		if (pthread_mutex_init(&philo[i].right_fork, NULL) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+		if (pthread_mutex_init(&philo[i].eat_mutex, NULL) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		if (i != 0)
 			philo[i].left_fork = &philo[i - 1].right_fork;
@@ -67,12 +69,11 @@ int	create_threads(t_data *data, t_philo *philo)
 	}
 	i = 0;
 	monitoring(data, philo);
-	printf("test\n");
 	while (i < data->n_philo)
 	{
-		printf("philo number %d about to be terminated\n", philo[i].id);
+		// printf("philo number %d about to be terminated\n", philo[i].id);
 		pthread_join(philo[i].thread, NULL);
-		printf("philo number %d terminated\n", philo[i].id);
+		// printf("philo number %d terminated\n", philo[i].id);
 		i++;
 	}
 	return (EXIT_SUCCESS);

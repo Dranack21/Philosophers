@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/07 18:23:37 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:50:05 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	monitoring(t_data *data, t_philo *philo)
 	int		i;
 	long	time;
 
-	i = 0;
 	while (1)
 	{
 		i = 0;
@@ -30,22 +29,35 @@ int	monitoring(t_data *data, t_philo *philo)
 				printf("%ld :%d has died\n", time, philo[i].id);
 			}
 			i++;
-			if (check_alive(data, philo) == 0)
-			{
-				i = 0;
-				printf("data->nphilo value = %d\n", data->n_philo);
-				while (i < data->n_philo)
-				{
-					if (i == data->n_philo)
-						break;
-					printf("is philo %d, alive ? : %d \n", philo[i].id, philo[i].alive);
-					printf("valeur de i %d\n", i);
-					i++;
-				}
+			if (check_alive(data, philo) == 0 || check_eating(data, philo) == 0)
 				return (0);
-			}
 		}
 	}
+}
+
+int	check_eating(t_data *data, t_philo *philo)
+{
+	int	i;
+	int k;
+
+	k = 1;
+	i = 0;
+	while (i < data->n_philo)
+	{
+		if (philo[i].meals_eaten >= data->n_eat)
+			k = 0;
+		else
+			k = 1;
+		i++;
+	}
+	if (k == 1)
+		return(EXIT_SUCCESS);
+	if (k == 0)
+	{
+		set_all_deadge(data, philo);
+		return (EXIT_FAILURE);
+	}
+		
 }
 
 int	check_alive(t_data *data, t_philo *philo)
