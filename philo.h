@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/07 18:58:43 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 21:30:26 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int					monitoring(t_data *data, t_philo *philo);
 int					check_alive(t_data *data, t_philo *philo);
 int					action(long desired_time, t_data *data, t_philo *philo);
 int					set_all_deadge(t_data *data, t_philo *philo);
-
 int	check_eating(t_data *data, t_philo *philo);
 
 int					ft_isdigit(int c);

@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/07 18:59:55 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 21:30:43 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ int	create_threads(t_data *data, t_philo *philo)
 	monitoring(data, philo);
 	while (i < data->n_philo)
 	{
-		// printf("philo number %d about to be terminated\n", philo[i].id);
 		pthread_join(philo[i].thread, NULL);
-		// printf("philo number %d terminated\n", philo[i].id);
 		i++;
 	}
 	return (EXIT_SUCCESS);
