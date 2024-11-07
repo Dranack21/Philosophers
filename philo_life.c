@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/05 11:38:54 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:14:02 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ int	eat(t_data *data, t_philo *philo)
 	struct timeval	tv;
 	long			time;
 
-	if (philo->alive == 0)
-		return(EXIT_FAILURE);
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->right_fork);
+	if (philo->alive == 0)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(&philo->right_fork);
+	}
 	gettimeofday(&tv, NULL);
 	time = get_time() - data->time_start;
 	printf("%ld :%d has taken a fork\n", time, philo->id);
@@ -48,7 +51,11 @@ int	eat(t_data *data, t_philo *philo)
 	philo->eating = 1;
 	philo->time_last_meal = time;
 	if (action(data->time_eat, data, philo) == EXIT_FAILURE)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(&philo->right_fork);
 		return (EXIT_FAILURE);
+	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(&philo->right_fork);
 	philo->meals_eaten++;
@@ -68,6 +75,7 @@ int	sleepge(t_data *data, t_philo *philo)
 	printf("%ld :%d is sleeping\n", time, philo->id);
 	if (action(data->time_sleep, data, philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	time = get_time() - data->time_start;
 	printf("%ld :%d is thinking\n", time, philo->id);
 	return (EXIT_SUCCESS);
 }

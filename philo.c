@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/05 11:40:40 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:15:17 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void cleanup(t_data *data, t_philo *philo)
 		i++;
 	}
 	free (philo);
-	free (data);
+	// free (data);
 }
 int	create_threads(t_data *data, t_philo *philo)
 {
