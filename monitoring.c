@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/07 19:08:06 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/07 18:50:05 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,27 @@ int	monitoring(t_data *data, t_philo *philo)
 int	check_eating(t_data *data, t_philo *philo)
 {
 	int	i;
-	int	all_full;
+	int k;
 
-	all_full = 1;
+	k = 1;
 	i = 0;
 	while (i < data->n_philo)
 	{
-		pthread_mutex_lock(&philo[i].eat_mutex);
-		if (philo[i].meals_eaten < data->n_eat)
-			all_full = 0;
-		pthread_mutex_unlock(&philo[i].eat_mutex);
+		if (philo[i].meals_eaten >= data->n_eat)
+			k = 0;
+		else
+			k = 1;
 		i++;
 	}
-	if (all_full)
+	if (k == 1)
+		return(EXIT_SUCCESS);
+	if (k == 0)
 	{
 		set_all_deadge(data, philo);
-		return (EXIT_SUCCESS);
+		return (EXIT_FAILURE);
 	}
-	return (EXIT_FAILURE);
+		
 }
-
 
 int	check_alive(t_data *data, t_philo *philo)
 {
