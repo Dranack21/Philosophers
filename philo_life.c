@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/08 22:01:54 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/08 22:15:55 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	eat(t_data *data, t_philo *philo)
 	printf("%ld :%d is eating\n", time, philo->id);
 	philo->eating = 1;
 	philo->time_last_meal = time;
-	if (action(data->time_eat, data, philo) == EXIT_FAILURE)
+	if (action2(data->time_eat, data) == EXIT_FAILURE)
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(&philo->right_fork);
@@ -94,6 +94,23 @@ int	action(long desired_time, t_data *data, t_philo *philo)
 		time = get_time() - data->time_start;
 		if (philo->alive == 0)
 			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+
+int	action2(long desired_time, t_data *data)
+{
+	struct timeval	tv;
+	long			time;
+
+	gettimeofday(&tv, NULL);
+	time = get_time() - data->time_start;
+	desired_time += time;
+	while (time < desired_time)
+	{
+		usleep(10);
+		time = get_time() - data->time_start;
 	}
 	return (EXIT_SUCCESS);
 }
