@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/08 22:15:55 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/08 22:23:09 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	eat(t_data *data, t_philo *philo)
 	philo->eating = 0; 
 	return (EXIT_SUCCESS);
 }
+
 
 int	sleepge(t_data *data, t_philo *philo)
 {
