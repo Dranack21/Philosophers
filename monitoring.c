@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/08 21:55:00 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/08 22:06:13 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	check_eating(t_data *data, t_philo *philo)
 	int	i;
 	int	all_full;
 
+	if (data->n_eat == -1)
+		return (1);
 	all_full = 1;
 	i = 0;
 	while (i < data->n_philo)
