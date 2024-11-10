@@ -6,29 +6,20 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 21:08:28 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 22:07:20 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	init_philo(t_data *data, t_philo *philo, char *argv[])
+int	init_philo(t_data *data, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	data->time_die = ft_atoi(argv[2]);
-	data->time_eat = ft_atoi(argv[3]);
-	data->time_sleep = ft_atoi(argv[4]);
-	if (argv[5])
-		data->n_eat = ft_atoi(argv[5]);
-	else 
-		data->n_eat = -1;
 	while (i < data->n_philo)
 	{
 		philo[i].id = i + 1;
-		philo[i].meal_count = 0;
-		philo[i].eating = 0;
 		philo[i].meals_eaten = 0;
 		philo[i].alive = 1;
 		philo[i].data = data;
@@ -47,7 +38,7 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
-void cleanup(t_data *data, t_philo *philo)
+void	cleanup(t_data *data, t_philo *philo)
 {
 	int	i;
 
@@ -57,8 +48,9 @@ void cleanup(t_data *data, t_philo *philo)
 		pthread_mutex_destroy(philo[i].left_fork);
 		i++;
 	}
-	free (philo);
+	free(philo);
 }
+
 int	create_threads(t_data *data, t_philo *philo)
 {
 	int	i;
@@ -74,7 +66,6 @@ int	create_threads(t_data *data, t_philo *philo)
 	monitoring(data, philo);
 	while (i < data->n_philo)
 	{
-		// printf("philo %d meals eaten %d\n", philo[i].id, philo[i].meals_eaten);
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
@@ -88,10 +79,16 @@ int	create_philos(t_data *data, char *argv[])
 	gettimeofday(&tv, NULL);
 	data->time_start = get_time();
 	data->n_philo = ft_atoi(argv[1]);
+	data->n_eat = -1;
+	data->time_die = ft_atoi(argv[2]);
+	data->time_eat = ft_atoi(argv[3]);
+	data->time_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		data->n_eat = ft_atoi(argv[5]);
 	data->philo = malloc(sizeof(t_philo) * data->n_philo);
 	if (!data->philo)
 		return (EXIT_FAILURE);
-	if (init_philo(data, data->philo, argv) == EXIT_FAILURE)
+	if (init_philo(data, data->philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	create_threads(data, data->philo);
 	return (EXIT_SUCCESS);

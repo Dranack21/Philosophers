@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 19:37:14 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 22:05:45 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	monitoring(t_data *data, t_philo *philo)
 	long	time;
 
 	i = 0;
+	usleep(1000);
 	while (1)
 	{
 		i = 0;
@@ -34,7 +35,7 @@ int	monitoring(t_data *data, t_philo *philo)
 			}
 			pthread_mutex_unlock(&philo[i].eat_mutex);
 			i++;
-			if (check_alive(data, philo) == 0  || check_eating(data, philo) == 0)
+			if (check_alive(data, philo) == 0 || check_eating(data, philo) == 0)
 				return (0);
 		}
 	}

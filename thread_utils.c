@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:14:50 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 21:16:30 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 22:06:10 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,27 @@ void	lock_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
-    	pthread_mutex_lock(philo->left_fork);
-    	pthread_mutex_lock(&philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(&philo->right_fork);
 	}
 	else
 	{
-    	pthread_mutex_lock(&philo->right_fork);
-    	pthread_mutex_lock(philo->left_fork);
+		usleep(100);
+		pthread_mutex_lock(&philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+	}
+}
+
+void	unlock_forks(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_unlock(&philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(&philo->right_fork);
 	}
 }

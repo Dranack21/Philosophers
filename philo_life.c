@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 21:14:17 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 22:05:51 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,77 +38,32 @@ void	*routine(void *arg)
 
 int	eat(t_data *data, t_philo *philo)
 {
-	struct timeval	tv;
-	long			time;
-	
-	if (philo->id % 2 == 0)
-	{
-    pthread_mutex_lock(philo->left_fork);
-    pthread_mutex_lock(&philo->right_fork);
-	}
-	else
-	{
-    pthread_mutex_lock(&philo->right_fork);
-    pthread_mutex_lock(philo->left_fork);
-	}
-	pthread_mutex_lock(&philo->eat_mutex);
+	long	time;
+
+	lock_forks(philo);
 	pthread_mutex_lock(&philo->life_mutex);
 	if (philo->alive == 0)
 	{
 		pthread_mutex_unlock(&philo->life_mutex);
-		pthread_mutex_unlock(&philo->eat_mutex);
-		if (philo->id % 2 == 0)
-		{
-    		pthread_mutex_unlock(&philo->right_fork);
-    		pthread_mutex_unlock(philo->left_fork);
-		}
-		else
-		{
-		    pthread_mutex_unlock(philo->left_fork);
-    		pthread_mutex_unlock(&philo->right_fork);
-		}
+		unlock_forks(philo);
 		return (EXIT_FAILURE);
 	}
 	pthread_mutex_unlock(&philo->life_mutex);
-	gettimeofday(&tv, NULL);
 	time = get_time() - data->time_start;
+	pthread_mutex_lock(&philo->eat_mutex);
+	philo->time_last_meal = time;
+	pthread_mutex_unlock(&philo->eat_mutex);
 	printf("%ld :%d has taken a fork\n", time, philo->id);
 	printf("%ld :%d has taken a fork\n", time, philo->id);
 	printf("%ld :%d is eating\n", time, philo->id);
-	philo->eating = 1;
-	philo->time_last_meal = time;
-	pthread_mutex_unlock(&philo->eat_mutex);
 	if (action(data->time_eat, data, philo) == EXIT_FAILURE)
-	{
-		if (philo->id % 2 == 0)
-		{
-    		pthread_mutex_unlock(&philo->right_fork);
-    		pthread_mutex_unlock(philo->left_fork);
-		}
-		else
-		{
-		    pthread_mutex_unlock(philo->left_fork);
-    		pthread_mutex_unlock(&philo->right_fork);
-		}
-		return (EXIT_FAILURE);
-	}
-	if (philo->id % 2 == 0)
-		{
-    		pthread_mutex_unlock(&philo->right_fork);
-    		pthread_mutex_unlock(philo->left_fork);
-		}
-		else
-		{
-		    pthread_mutex_unlock(philo->left_fork);
-    		pthread_mutex_unlock(&philo->right_fork);
-		}
+		return (unlock_forks(philo), EXIT_FAILURE);
+	unlock_forks(philo);
 	pthread_mutex_lock(&philo->eat_mutex);
 	philo->meals_eaten++;
-	philo->eating = 0;
 	pthread_mutex_unlock(&philo->eat_mutex);
 	return (EXIT_SUCCESS);
 }
-
 
 int	sleepge(t_data *data, t_philo *philo)
 {
@@ -119,7 +74,7 @@ int	sleepge(t_data *data, t_philo *philo)
 	if (philo->alive == 0)
 	{
 		pthread_mutex_unlock(&philo->life_mutex);
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	pthread_mutex_unlock(&philo->life_mutex);
 	gettimeofday(&tv, NULL);

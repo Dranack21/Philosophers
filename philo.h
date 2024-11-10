@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 21:16:21 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 22:06:04 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_data
 
 int					parsing(int argc, char *argv[]);
 int					create_philos(t_data *data, char *argv[]);
-int					init_philo(t_data *data, t_philo *philo, char *argv[]);
+int					init_philo(t_data *data, t_philo *philo);
 void				*routine(void *arg);
 int					eat(t_data *data, t_philo *philo);
 long				get_time(void);
@@ -60,7 +60,8 @@ int					check_alive(t_data *data, t_philo *philo);
 int					action(long desired_time, t_data *data, t_philo *philo);
 int					set_all_deadge(t_data *data, t_philo *philo);
 int					check_eating(t_data *data, t_philo *philo);
-void	lock_forks(t_philo *philo);
+void				lock_forks(t_philo *philo);
+void				unlock_forks(t_philo *philo);
 
 int					ft_isdigit(int c);
 int					sleepge(t_data *data, t_philo *philo);
