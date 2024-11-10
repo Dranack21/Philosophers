@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/08 22:08:48 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 18:37:07 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	init_philo(t_data *data, t_philo *philo, char *argv[])
 		philo[i].meals_eaten = 0;
 		philo[i].alive = 1;
 		philo[i].data = data;
+		philo[i].time_last_meal = 0;
 		if (pthread_mutex_init(&philo[i].right_fork, NULL) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		if (pthread_mutex_init(&philo[i].eat_mutex, NULL) != EXIT_SUCCESS)

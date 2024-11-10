@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/08 22:06:13 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 18:58:52 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ int	monitoring(t_data *data, t_philo *philo)
 		i = 0;
 		while (i < data->n_philo)
 		{
+			pthread_mutex_lock(&philo[i].eat_mutex);
 			time = get_time() - data->time_start;
 			if (time - philo[i].time_last_meal >= data->time_die)
 			{
 				philo[i].alive = 0;
 				printf("%ld :%d has died\n", time, philo[i].id);
+				pthread_mutex_unlock(&philo[i].eat_mutex);
 			}
+			pthread_mutex_unlock(&philo[i].eat_mutex);
 			i++;
 			if (check_alive(data, philo) == 0  || check_eating(data, philo) == 0)
 				return (0);

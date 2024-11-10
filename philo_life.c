@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 15:25:23 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:02:30 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ int	eat(t_data *data, t_philo *philo)
 
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->right_fork);
+	pthread_mutex_lock(&philo->eat_mutex);
 	if (philo->alive == 0)
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(&philo->right_fork);
+		pthread_mutex_unlock(&philo->eat_mutex);
 		return (EXIT_FAILURE);
 	}
 	gettimeofday(&tv, NULL);
@@ -51,6 +53,7 @@ int	eat(t_data *data, t_philo *philo)
 	printf("%ld :%d is eating\n", time, philo->id);
 	philo->eating = 1;
 	philo->time_last_meal = time;
+	pthread_mutex_unlock(&philo->eat_mutex);
 	if (action(data->time_eat, data, philo) == EXIT_FAILURE)
 	{
 		pthread_mutex_unlock(philo->left_fork);
@@ -59,8 +62,10 @@ int	eat(t_data *data, t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(&philo->right_fork);
+	pthread_mutex_lock(&philo->eat_mutex);
 	philo->meals_eaten++;
-	philo->eating = 0; 
+	philo->eating = 0;
+	pthread_mutex_unlock(&philo->eat_mutex);
 	return (EXIT_SUCCESS);
 }
 
