@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 19:29:12 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 21:08:28 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	create_threads(t_data *data, t_philo *philo)
 	monitoring(data, philo);
 	while (i < data->n_philo)
 	{
-		printf("philo %d meals eaten %d\n", philo[i].id, philo[i].meals_eaten);
+		// printf("philo %d meals eaten %d\n", philo[i].id, philo[i].meals_eaten);
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
