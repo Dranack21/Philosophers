@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 19:47:59 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 20:04:13 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 1)
-		usleep(50);
+		usleep(1000);
 	while (1)
 	{
 		if (eat(philo->data, philo) == EXIT_FAILURE)
@@ -40,7 +40,7 @@ int	eat(t_data *data, t_philo *philo)
 {
 	struct timeval	tv;
 	long			time;
-
+	
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->right_fork);
 	pthread_mutex_lock(&philo->eat_mutex);
