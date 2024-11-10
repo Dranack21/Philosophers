@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 18:58:52 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:23:47 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ int	monitoring(t_data *data, t_philo *philo)
 		i = 0;
 		while (i < data->n_philo)
 		{
-			pthread_mutex_lock(&philo[i].eat_mutex);
 			time = get_time() - data->time_start;
+			pthread_mutex_lock(&philo[i].eat_mutex);
 			if (time - philo[i].time_last_meal >= data->time_die)
 			{
+				pthread_mutex_lock(&philo[i].life_mutex);
 				philo[i].alive = 0;
-				printf("%ld :%d has died\n", time, philo[i].id);
+				pthread_mutex_unlock(&philo[i].life_mutex);
 				pthread_mutex_unlock(&philo[i].eat_mutex);
+				printf("%ld :%d has died\n", time, philo[i].id);
 			}
 			pthread_mutex_unlock(&philo[i].eat_mutex);
 			i++;
@@ -71,11 +73,14 @@ int	check_alive(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->n_philo)
 	{
+		pthread_mutex_lock(&philo[i].life_mutex);
 		if (philo[i].alive == 0)
 		{
+			pthread_mutex_unlock(&philo[i].life_mutex);
 			set_all_deadge(data, philo);
 			return (0);
 		}
+		pthread_mutex_unlock(&philo[i].life_mutex);
 		i++;
 	}
 	return (1);
@@ -88,7 +93,9 @@ int	set_all_deadge(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->n_philo)
 	{
+		pthread_mutex_lock(&philo[i].life_mutex);
 		philo[i].alive = 0;
+		pthread_mutex_unlock(&philo[i].life_mutex);
 		i++;
 	}
 	return (0);

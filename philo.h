@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 15:20:55 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/10 19:07:56 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	right_fork;
+	pthread_mutex_t	life_mutex;
 	pthread_mutex_t	eat_mutex;
 	struct s_data	*data;
 	long			time_death;
