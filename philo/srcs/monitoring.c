@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:54:19 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 22:05:45 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/13 03:37:30 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	monitoring(t_data *data, t_philo *philo)
 				pthread_mutex_lock(&philo[i].life_mutex);
 				philo[i].alive = 0;
 				pthread_mutex_unlock(&philo[i].life_mutex);
+				pthread_mutex_lock(&data->print_mutex);
 				printf("%ld :%d has died\n", time, philo[i].id);
+				pthread_mutex_unlock(&data->print_mutex);
 			}
 			pthread_mutex_unlock(&philo[i].eat_mutex);
 			i++;

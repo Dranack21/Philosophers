@@ -5,18 +5,17 @@ RESET = \x1B[0m
 
 ######### FLAGS ########
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g3 -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread
 SANITIZE_FLAGS = -fsanitize=thread -fno-omit-frame-pointer
 
 ######### DIRECTORIES ########
 SRC_DIR = srcs
 OBJ_DIR = objs
 INCLUDE_DIR = includes
-# Add all include directories here
+
 INCLUDE_DIRS = -I$(INCLUDE_DIR)
 
 ######### FILES ########
-# Update these with your actual source files
 
 SRC_FILES = $(SRC_DIR)/monitoring.c \
 			$(SRC_DIR)/philo.c \

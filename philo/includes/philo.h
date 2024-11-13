@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 22:06:04 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/13 03:34:13 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_data
 	int				n_eat;
 	int				n_philo;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	death_mutex;
 }					t_data;
 
 int					parsing(int argc, char *argv[]);

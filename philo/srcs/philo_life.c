@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 22:05:51 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/13 03:37:04 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ int	eat(t_data *data, t_philo *philo)
 	pthread_mutex_lock(&philo->eat_mutex);
 	philo->time_last_meal = time;
 	pthread_mutex_unlock(&philo->eat_mutex);
+	pthread_mutex_lock(&data->print_mutex);
 	printf("%ld :%d has taken a fork\n", time, philo->id);
 	printf("%ld :%d has taken a fork\n", time, philo->id);
 	printf("%ld :%d is eating\n", time, philo->id);
+	pthread_mutex_unlock(&data->print_mutex);
 	if (action(data->time_eat, data, philo) == EXIT_FAILURE)
 		return (unlock_forks(philo), EXIT_FAILURE);
 	unlock_forks(philo);
@@ -79,7 +81,9 @@ int	sleepge(t_data *data, t_philo *philo)
 	pthread_mutex_unlock(&philo->life_mutex);
 	gettimeofday(&tv, NULL);
 	time = get_time() - data->time_start;
+	pthread_mutex_lock(&data->print_mutex);
 	printf("%ld :%d is sleeping\n", time, philo->id);
+	pthread_mutex_unlock(&data->print_mutex);
 	if (action(data->time_sleep, data, philo) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	time = get_time() - data->time_start;
