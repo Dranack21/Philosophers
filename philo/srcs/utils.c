@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:53:35 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/10 22:07:52 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/14 17:28:43 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,11 @@ long	get_time(void)
 	gettimeofday(&tv, NULL);
 	value = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (value);
+}
+
+void	one_philo(t_data *data)
+{
+	printf("0 :1 has taken a fork\n");
+	usleep(data->time_die * 1000);
+	printf("%ld :1 died\n", get_time() - data->time_start);
 }

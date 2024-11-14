@@ -6,15 +6,18 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/13 03:34:13 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/14 17:18:37 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <unistd.h>
+#ifndef PHILO_H
+# define PHILO_H
+
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
 
 typedef struct s_philo
 {
@@ -61,8 +64,11 @@ int					set_all_deadge(t_data *data, t_philo *philo);
 int					check_eating(t_data *data, t_philo *philo);
 void				lock_forks(t_philo *philo);
 void				unlock_forks(t_philo *philo);
+void				one_philo(t_data *data);
 
 int					ft_isdigit(int c);
 int					sleepge(t_data *data, t_philo *philo);
 int					create_threads(t_data *data, t_philo *philo);
 int					ft_atoi(const char *nptr);
+
+#endif
