@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/13 03:35:33 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/13 03:58:12 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	create_philos(t_data *data, char *argv[])
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != EXIT_SUCCESS)
-			return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	data->philo = malloc(sizeof(t_philo) * data->n_philo);
 	if (!data->philo)
 		return (EXIT_FAILURE);

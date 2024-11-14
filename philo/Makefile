@@ -1,7 +1,7 @@
 ######### COLORS ########
-GREEN = \x1B[32m
-RED = \x1B[31m
-RESET = \x1B[0m
+GREEN := $(shell printf "\033[32m")
+RED := $(shell printf "\033[31m")
+RESET := $(shell printf "\033[0m")
 
 ######### FLAGS ########
 CC = clang
