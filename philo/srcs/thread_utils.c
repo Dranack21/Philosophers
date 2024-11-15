@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:14:50 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/14 16:15:42 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/15 01:13:16 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,20 @@ void	unlock_forks(t_philo *philo)
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(&philo->right_fork);
+	}
+}
+
+void	wait_for_eat(t_philo *philo)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&philo->eaten_mutex);
+		if (philo->can_eat == 0 && philo->meals_eaten != philo->data->n_eat)
+		{
+			usleep(50);
+			pthread_mutex_unlock(&philo->eaten_mutex);
+		}
+		else
+			pthread_mutex_unlock(&philo->eaten_mutex);
 	}
 }

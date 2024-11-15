@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/13 03:59:05 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/15 01:03:37 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	*routine(void *arg)
 	{
 		if (eat(philo->data, philo) == EXIT_FAILURE)
 			return (NULL);
-		pthread_mutex_lock(&philo->eat_mutex);
+		pthread_mutex_lock(&philo->eaten_mutex);
 		philo->meals_eaten++;
-		pthread_mutex_unlock(&philo->eat_mutex);
+		pthread_mutex_unlock(&philo->eaten_mutex);
 		if (sleepge(philo->data, philo) == EXIT_FAILURE)
 			return (NULL);
 		pthread_mutex_lock(&philo->life_mutex);
@@ -35,6 +35,8 @@ void	*routine(void *arg)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->life_mutex);
+		while (philo->can_eat == 0 && philo->meals_eaten != philo->data->n_eat)
+			usleep(50);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:49:43 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/14 17:18:37 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/15 01:02:06 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philo
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	life_mutex;
 	pthread_mutex_t	eat_mutex;
+	pthread_mutex_t	eaten_mutex;
 	struct s_data	*data;
 	long			time_death;
 	long			time_sleep;
@@ -34,6 +35,7 @@ typedef struct s_philo
 	int				id;
 	int				meal_count;
 	int				eating;
+	int				can_eat;
 	int				alive;
 	int				meals_eaten;
 
@@ -65,6 +67,8 @@ int					check_eating(t_data *data, t_philo *philo);
 void				lock_forks(t_philo *philo);
 void				unlock_forks(t_philo *philo);
 void				one_philo(t_data *data);
+int					can_eat(t_data *data, t_philo *philo);
+void				wait_for_eat(t_philo *philo);
 
 int					ft_isdigit(int c);
 int					sleepge(t_data *data, t_philo *philo);

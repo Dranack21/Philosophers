@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/14 17:29:08 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/14 22:34:40 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	init_philo(t_data *data, t_philo *philo)
 		if (pthread_mutex_init(&philo[i].eat_mutex, NULL) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		if (pthread_mutex_init(&philo[i].life_mutex, NULL) != EXIT_SUCCESS)
+			return (EXIT_FAILURE);
+		if (pthread_mutex_init(&philo[i].eaten_mutex, NULL) != EXIT_SUCCESS)
 			return (EXIT_FAILURE);
 		if (i != 0)
 			philo[i].left_fork = &philo[i - 1].right_fork;
