@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:14:50 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/15 01:50:11 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/15 02:20:20 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	unlock_forks(t_philo *philo)
 
 void	wait_for_eat(t_philo *philo)
 {
-	while (philo->can_eat == 0 && philo->meals_eaten != philo->data->n_eat && philo->alive == 1)
-			usleep(50);
+	while (philo->can_eat == 0 && philo->meals_eaten
+		!= philo->data->n_eat && philo->alive == 1)
+		usleep(50);
 }
