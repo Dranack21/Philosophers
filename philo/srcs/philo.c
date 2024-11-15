@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:32:18 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/14 22:34:40 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/15 01:23:17 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	cleanup(t_data *data, t_philo *philo)
 		i++;
 	}
 	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&philo->eat_mutex);
+	pthread_mutex_destroy(&philo->life_mutex);
+	pthread_mutex_destroy(&philo->eat_mutex);
 	free(philo);
 }
 
