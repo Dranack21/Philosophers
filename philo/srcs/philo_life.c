@@ -6,7 +6,7 @@
 /*   By: habouda <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:19:37 by habouda           #+#    #+#             */
-/*   Updated: 2024/11/15 01:03:37 by habouda          ###   ########.fr       */
+/*   Updated: 2024/11/15 01:50:19 by habouda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	*routine(void *arg)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->life_mutex);
-		while (philo->can_eat == 0 && philo->meals_eaten != philo->data->n_eat)
-			usleep(50);
+		wait_for_eat(philo);
 	}
 	return (NULL);
 }
